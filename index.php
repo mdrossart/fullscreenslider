@@ -35,20 +35,20 @@ function scan_dir($dir) {
             if(isset($infos[0]) && isset($infos[1])){
                 if(!empty($infos[0]) && !empty($infos[1])){
                     $name = $infos[0];
-                    $extension = $infos[1];
+                    $extension = strtolower($infos[1]);
                     if(is_string($extension) && strlen($extension)>=3){
                         if($extension=="jpg" || $extension=="jpeg" || $extension=="png" || $extension=="gif"){
                             ?>
                             <a href="datas/<?php echo $file; ?>" title="<?php echo $name; ?>">
                                 <img src="images/thumbnails/<?php echo $file; ?>" alt="<?php echo $name; ?>">
-                            </a>
+                            </a><br />
                             <?php
                         }
                         elseif($extension=="ogg" || $extension=="mp4" || $extension=="webm"){
                             ?>
                             <a href="datas/<?php echo $file; ?>" title="Video <?php echo $i; ?>" type="video/<?php echo $extension; ?>">
                                 Video  <?php echo $i; ?>
-                            </a>
+                            </a><br />
                             <?php
                             $i++;
                         }
