@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+Authors : Drossart Maxime, Goossens Cédric
+Project start ->, chrome.exe –kiosk http:// [enter URL here]
 -->
+<?php
+function scan_dir($dir) {
+    $ignored = array('.', '..', '.svn', '.htaccess');
+
+    $_files = array();    
+    foreach (scandir($dir) as $file) {
+        if (in_array($file, $ignored)) continue;
+        $_files[$file] = filemtime($dir . '/' . $file);
+    }
+
+    arsort($_files);
+    $_files = array_keys($_files);
+
+    return ($_files) ? $_files : false;
+}
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -11,21 +26,42 @@ and open the template in the editor.
         <link rel="stylesheet" href="assets/css/blueimp-gallery.min.css">
     </head>
     <body>
-        <?php
-        // Project start ->, chrome.exe –kiosk http:// [enter URL here]
-        // Create with php the "links" div as below
-        ?>
         <div id="links">
-            <a href="datas/banana.jpg" title="Banana">
-                <img src="images/thumbnails/banana.jpg" alt="Banana">
-            </a>
-            <a href="datas/apple.jpg" title="Apple">
-                <img src="images/thumbnails/apple.jpg" alt="Apple">
-            </a>
-            <a href="datas/orange.jpg" title="Orange">
-                <img src="images/thumbnails/orange.jpg" alt="Orange">
-            </a>
+        <?php
+        $files = scan_dir ( getcwd () . "/datas");
+        $i=1;
+        foreach($files as $file){
+            $infos = explode(".", $file);
+            if(isset($infos[0]) && isset($infos[1])){
+                if(!empty($infos[0]) && !empty($infos[1])){
+                    $name = $infos[0];
+                    $extension = $infos[1];
+                    if(is_string($extension) && strlen($extension)>=3){
+                        if($extension=="jpg" || $extension=="jpeg" || $extension=="png" || $extension=="gif"){
+                            ?>
+                            <a href="datas/<?php echo $file; ?>" title="<?php echo $name; ?>">
+                                <img src="images/thumbnails/<?php echo $file; ?>" alt="<?php echo $name; ?>">
+                            </a>
+                            <?php
+                        }
+                        elseif($extension=="ogg" || $extension=="mp4" || $extension=="webm"){
+                            ?>
+                            <a href="datas/<?php echo $file; ?>" title="Video <?php echo $i; ?>" type="video/<?php echo $extension; ?>">
+                                Video  <?php echo $i; ?>
+                            </a>
+                            <?php
+                            $i++;
+                        }
+                    }
+                }
+            }
+        }
+        ?>
         </div>
+            <!--<a href="datas/donjon-porteursdechaussettes.mp3" title="Video 1" type="audio/mpeg">
+                MP3 1
+            </a>-->
+        
         <div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery blueimp-gallery-controls">
             <div class="slides"></div>
             <h3 class="title"></h3>
