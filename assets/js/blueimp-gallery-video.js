@@ -146,6 +146,7 @@
             videoContainer.addClass(that.options.videoLoadingClass)
             that.playingVideo = video
           })
+
         $(playMediaControl).on('click', function (event) {
           that.preventDefault(event)
           if (isLoading) {
@@ -166,6 +167,6 @@
       return videoContainerNode
     }
   })
-
+   
   return Gallery
 }))

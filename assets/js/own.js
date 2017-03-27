@@ -5,12 +5,19 @@
  */
 
 $(document).ready(function() {
+    function verifyVid(index, object){
+        if(typeof $($("#links").children().get(index)).attr("type")!=="undefined"){
+            $(object).children().find("a").first().trigger("click");
+        }
+    }
+    $("#links").hide();
     $("#links").click(function(event){
         event = event || window.event;
         var target = event.target || event.srcElement,
             link = target.src ? target.parentNode : target,
-            options = {index: link, event: event, container: '#blueimp-gallery-carousel', carousel: true, fullScreen: true, closeOnSlideClick: false, closeOnSwipeUpOrDown: false, disableScroll: true},
+            options = {index: link, event: event, container: '#blueimp-gallery-carousel', carousel: true, fullScreen: true, closeOnSlideClick: false, closeOnSwipeUpOrDown: false, disableScroll: true, onslide: verifyVid},
             links = this.getElementsByTagName('a');
         blueimp.Gallery(links, options);
     });
+    $("#links").first().trigger("click");
 });

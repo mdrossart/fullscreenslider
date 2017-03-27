@@ -39,16 +39,18 @@ function scan_dir($dir) {
                     if(is_string($extension) && strlen($extension)>=3){
                         if($extension=="jpg" || $extension=="jpeg" || $extension=="png" || $extension=="gif"){
                             ?>
-                            <a href="datas/<?php echo $file; ?>" title="<?php echo $name; ?>">
+                            <!--title="<?php echo $name; ?>"-->
+                            <a href="datas/<?php echo $file; ?>" >
                                 <img src="images/thumbnails/<?php echo $file; ?>" alt="<?php echo $name; ?>">
-                            </a><br />
+                            </a>
                             <?php
                         }
                         elseif($extension=="ogg" || $extension=="mp4" || $extension=="webm"){
                             ?>
-                            <a href="datas/<?php echo $file; ?>" title="Video <?php echo $i; ?>" type="video/<?php echo $extension; ?>">
+                            <!--title="Video <?php echo $i; ?>" -->
+                            <a href="datas/<?php echo $file; ?>" type="video/<?php echo $extension; ?>">
                                 Video  <?php echo $i; ?>
-                            </a><br />
+                            </a>
                             <?php
                             $i++;
                         }
@@ -70,7 +72,7 @@ function scan_dir($dir) {
             <a class="play-pause"></a>
             <ol class="indicator"></ol>
         </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="assets/js/jquery-3.2.0.min.js"></script>
         <script src="assets/js/blueimp-gallery.min.js"></script>
         <script src="assets/js/blueimp-gallery-fullscreen.js"></script>
         <script src="assets/js/blueimp-gallery-indicator.js"></script>
