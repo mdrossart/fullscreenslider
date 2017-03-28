@@ -7,7 +7,7 @@
 $(document).ready(function() {
     function verifyVid(index, object){
         if(typeof $($("#links").children().get(index)).attr("type")!=="undefined"){
-            $(object).children().find("a").first().trigger("click");
+            $($(object).find('.video-content video')).get(0).play();
         }
     }
     $("#links").hide();
