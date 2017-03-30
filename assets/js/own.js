@@ -14,6 +14,8 @@ $(document).ready(function() {
             var video = $($(object).find('.video-content video')).get(0);
             video.addEventListener("ended", relaunch);
             video.play();
+        }else{
+            relaunch();
         }
     }
     $("#links").hide();
