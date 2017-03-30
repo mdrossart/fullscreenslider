@@ -13,6 +13,19 @@ $(document).ready(function() {
             gallery.pause();
             var video = $($(object).find('.video-content video')).get(0);
             video.addEventListener("ended", relaunch);
+            video.addEventListener("pause", relaunch);
+            video.addEventListener('error', function (e) {
+                var date = new Date();
+                var milliSecs = date.getMilliseconds();
+                var curr_src = $(video[0]).attr('src');
+                var curr_src_arr = curr_src.split("?");
+                var new_src = curr_src_arr[0]+"?t="+milliSecs;
+
+                $(video[0]).attr('src',new_src);
+                $(video[0]).find('source').attr('src',new_src);
+                video[0].load();
+                //media[0].play(); /* Here we can not trigger play video/audio without user interaction. */
+             }, false);
             video.play();
         }else{
             relaunch();
