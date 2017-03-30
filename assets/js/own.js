@@ -3,11 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var gallery;
 $(document).ready(function() {
+    function relaunch(){
+        gallery.play();
+    }
     function verifyVid(index, object){
         if(typeof $($("#links").children().get(index)).attr("type")!=="undefined"){
-            $($(object).find('.video-content video')).get(0).play();
+            gallery.pause();
+            var video = $($(object).find('.video-content video')).get(0);
+            video.addEventListener("ended", relaunch);
+            video.play();
         }
     }
     $("#links").hide();
@@ -17,7 +23,7 @@ $(document).ready(function() {
             link = target.src ? target.parentNode : target,
             options = {index: link, event: event, container: '#blueimp-gallery-carousel', carousel: true, fullScreen: true, closeOnSlideClick: false, closeOnSwipeUpOrDown: false, disableScroll: true, onslide: verifyVid},
             links = this.getElementsByTagName('a');
-        blueimp.Gallery(links, options);
+        gallery = blueimp.Gallery(links, options);
     });
     $("#links").first().trigger("click");
 });
