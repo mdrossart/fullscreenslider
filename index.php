@@ -29,11 +29,22 @@ function scan_dir($dir) {
         <div id="links">
         <?php
         $files = scan_dir ( getcwd () . "/datas");
+        $logo = "ads.png";
         $i=1;
+        $j=0;
+        $frequence = 80;
         foreach($files as $file){
             $infos = explode(".", $file);
+            if($j%$frequence==0){
+                ?>
+                <!--title="ads"-->
+                <a href="datas/<?php echo $logo; ?>" >
+                    <img src="images/thumbnails/<?php echo $logo; ?>" alt="ads">
+                </a>
+                <?php
+            }
             if(isset($infos[0]) && isset($infos[1])){
-                if(!empty($infos[0]) && !empty($infos[1])){
+                if(!empty($infos[0]) && !empty($infos[1]) && $file!=$logo){
                     $name = $infos[0];
                     $extension = strtolower($infos[1]);
                     if(is_string($extension) && strlen($extension)>=3){
@@ -57,6 +68,7 @@ function scan_dir($dir) {
                     }
                 }
             }
+            $j++;
         }
         ?>
         </div>
